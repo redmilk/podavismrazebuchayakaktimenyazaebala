@@ -47,7 +47,7 @@ class StartGameViewController: UIViewController {
         
         gradient = CAGradientLayer()
         gradient.colors = [UIColor.blue.cgColor, UIColor.red.cgColor, UIColor.blue.cgColor]
-        gradient.locations = [0.0 , 0.5, 1.0]
+        gradient.locations = [0.0 , 0.7, 1.0]
         gradient.startPoint = CGPoint(x: 0.0, y: 0.6)
         gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
@@ -68,13 +68,12 @@ class StartGameViewController: UIViewController {
     
     func gradientColorChangeAnimation() {
         let gradientAnimationColors = CABasicAnimation(keyPath: "colors")
-        gradientAnimationColors.fromValue = [UIColor.blue.cgColor, UIColor.red.cgColor, UIColor.blue.cgColor]
-        gradientAnimationColors.toValue = [UIColor.white.cgColor, UIColor.red.cgColor, UIColor.black.cgColor]
+        gradientAnimationColors.fromValue = [UIColor.white.cgColor, UIColor.white.cgColor, UIColor.green.cgColor]
+        gradientAnimationColors.toValue = [UIColor.white.cgColor, UIColor.green.cgColor, UIColor.yellow.cgColor]
         gradientAnimationColors.duration = 10.0
         gradientAnimationColors.autoreverses = true
         gradientAnimationColors.repeatCount = Float.infinity
         gradient.add(gradientAnimationColors, forKey: nil)
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
