@@ -1,0 +1,479 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AC0B56761E5F51EF00CFA7F4 /* MPFoldModalSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0B566F1E5F51EF00CFA7F4 /* MPFoldModalSegue.m */; };
+		AC0B56771E5F51EF00CFA7F4 /* MPFoldNavPopSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0B56711E5F51EF00CFA7F4 /* MPFoldNavPopSegue.m */; };
+		AC0B56781E5F51EF00CFA7F4 /* MPFoldNavPushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0B56731E5F51EF00CFA7F4 /* MPFoldNavPushSegue.m */; };
+		AC0B56791E5F51EF00CFA7F4 /* MPFoldSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0B56751E5F51EF00CFA7F4 /* MPFoldSegue.m */; };
+		AC0B56851E5F539F00CFA7F4 /* MPAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0B567B1E5F539F00CFA7F4 /* MPAnimation.m */; };
+		AC0B56871E5F539F00CFA7F4 /* MPFoldTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0B56811E5F539F00CFA7F4 /* MPFoldTransition.m */; };
+		AC0B56881E5F539F00CFA7F4 /* MPTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0B56831E5F539F00CFA7F4 /* MPTransition.m */; };
+		AC14DE221DF423FF00E7E3DD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14DE211DF423FF00E7E3DD /* WebViewController.swift */; };
+		AC274ADE1DEB105900906D1B /* GameDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC274ADD1DEB105900906D1B /* GameDoneViewController.swift */; };
+		AC274AE01DEB106F00906D1B /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC274ADF1DEB106F00906D1B /* GameOverViewController.swift */; };
+		AC274AE21DEB16D200906D1B /* JUSTCODE.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC274AE11DEB16D200906D1B /* JUSTCODE.swift */; };
+		AC30F47B1E700D880022F3D9 /* FoldTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC30F47A1E700D880022F3D9 /* FoldTestViewController.swift */; };
+		AC6F20501DD1D4F3009C46B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F204F1DD1D4F3009C46B7 /* AppDelegate.swift */; };
+		AC7DDFBB1DFABCEA000C1713 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7DDFBA1DFABCEA000C1713 /* SplashScreenViewController.swift */; };
+		AC86E45E1DEDD7E700191AE6 /* StartGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC86E45D1DEDD7E700191AE6 /* StartGameViewController.swift */; };
+		AC8E35FF1E34D15A0042B316 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC8E35FE1E34D15A0042B316 /* Main.storyboard */; };
+		AC99117E1DD9D32300D8C934 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC99117D1DD9D32300D8C934 /* QuestionViewController.swift */; };
+		AC9911801DD9D48000D8C934 /* Fighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC99117F1DD9D48000D8C934 /* Fighter.swift */; };
+		AC9911821DD9D9FD00D8C934 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9911811DD9D9FD00D8C934 /* GameController.swift */; };
+		ACD76F871E60666800ECBA70 /* TheQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD76F861E60666800ECBA70 /* TheQuestion.swift */; };
+		ACFD05671E5884F00042F4A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACFD05661E5884F00042F4A4 /* Assets.xcassets */; };
+		D4EE62B74A69655CD87CC785 /* Pods_FightersTrivia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A134C9705E1A1E39B8D2A47A /* Pods_FightersTrivia.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1325351173E1AAF2590AE388 /* Pods-FightersTrivia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightersTrivia.release.xcconfig"; path = "Pods/Target Support Files/Pods-FightersTrivia/Pods-FightersTrivia.release.xcconfig"; sourceTree = "<group>"; };
+		7658956D60BA29435DE8C9F9 /* Pods-FightersTrivia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightersTrivia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FightersTrivia/Pods-FightersTrivia.debug.xcconfig"; sourceTree = "<group>"; };
+		A134C9705E1A1E39B8D2A47A /* Pods_FightersTrivia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FightersTrivia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC0B566E1E5F51EF00CFA7F4 /* MPFoldModalSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPFoldModalSegue.h; path = FightersTrivia/MPFoldModalSegue.h; sourceTree = "<group>"; };
+		AC0B566F1E5F51EF00CFA7F4 /* MPFoldModalSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPFoldModalSegue.m; path = FightersTrivia/MPFoldModalSegue.m; sourceTree = "<group>"; };
+		AC0B56701E5F51EF00CFA7F4 /* MPFoldNavPopSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPFoldNavPopSegue.h; path = FightersTrivia/MPFoldNavPopSegue.h; sourceTree = "<group>"; };
+		AC0B56711E5F51EF00CFA7F4 /* MPFoldNavPopSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPFoldNavPopSegue.m; path = FightersTrivia/MPFoldNavPopSegue.m; sourceTree = "<group>"; };
+		AC0B56721E5F51EF00CFA7F4 /* MPFoldNavPushSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPFoldNavPushSegue.h; path = FightersTrivia/MPFoldNavPushSegue.h; sourceTree = "<group>"; };
+		AC0B56731E5F51EF00CFA7F4 /* MPFoldNavPushSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPFoldNavPushSegue.m; path = FightersTrivia/MPFoldNavPushSegue.m; sourceTree = "<group>"; };
+		AC0B56741E5F51EF00CFA7F4 /* MPFoldSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPFoldSegue.h; path = FightersTrivia/MPFoldSegue.h; sourceTree = "<group>"; };
+		AC0B56751E5F51EF00CFA7F4 /* MPFoldSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPFoldSegue.m; path = FightersTrivia/MPFoldSegue.m; sourceTree = "<group>"; };
+		AC0B567A1E5F539F00CFA7F4 /* MPAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPAnimation.h; path = FightersTrivia/MPAnimation.h; sourceTree = "<group>"; };
+		AC0B567B1E5F539F00CFA7F4 /* MPAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPAnimation.m; path = FightersTrivia/MPAnimation.m; sourceTree = "<group>"; };
+		AC0B567F1E5F539F00CFA7F4 /* MPFoldEnumerations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPFoldEnumerations.h; path = FightersTrivia/MPFoldEnumerations.h; sourceTree = "<group>"; };
+		AC0B56801E5F539F00CFA7F4 /* MPFoldTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPFoldTransition.h; path = FightersTrivia/MPFoldTransition.h; sourceTree = "<group>"; };
+		AC0B56811E5F539F00CFA7F4 /* MPFoldTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPFoldTransition.m; path = FightersTrivia/MPFoldTransition.m; sourceTree = "<group>"; };
+		AC0B56821E5F539F00CFA7F4 /* MPTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPTransition.h; path = FightersTrivia/MPTransition.h; sourceTree = "<group>"; };
+		AC0B56831E5F539F00CFA7F4 /* MPTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPTransition.m; path = FightersTrivia/MPTransition.m; sourceTree = "<group>"; };
+		AC0B56841E5F539F00CFA7F4 /* MPTransitionEnumerations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPTransitionEnumerations.h; path = FightersTrivia/MPTransitionEnumerations.h; sourceTree = "<group>"; };
+		AC0B56891E5F54E300CFA7F4 /*  */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ""; sourceTree = "<group>"; };
+		AC14DE211DF423FF00E7E3DD /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		AC274ADD1DEB105900906D1B /* GameDoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDoneViewController.swift; sourceTree = "<group>"; };
+		AC274ADF1DEB106F00906D1B /* GameOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
+		AC274AE11DEB16D200906D1B /* JUSTCODE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JUSTCODE.swift; sourceTree = "<group>"; };
+		AC30F47A1E700D880022F3D9 /* FoldTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldTestViewController.swift; sourceTree = "<group>"; };
+		AC6F204C1DD1D4F3009C46B7 /* FightersTrivia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightersTrivia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC6F204F1DD1D4F3009C46B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AC6F205B1DD1D4F3009C46B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC7DDFBA1DFABCEA000C1713 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		AC86E45D1DEDD7E700191AE6 /* StartGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartGameViewController.swift; sourceTree = "<group>"; };
+		AC8E35FE1E34D15A0042B316 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		AC99117D1DD9D32300D8C934 /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
+		AC99117F1DD9D48000D8C934 /* Fighter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fighter.swift; sourceTree = "<group>"; };
+		AC9911811DD9D9FD00D8C934 /* GameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
+		ACD76F861E60666800ECBA70 /* TheQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheQuestion.swift; sourceTree = "<group>"; };
+		ACFD05661E5884F00042F4A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AC6F20491DD1D4F3009C46B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4EE62B74A69655CD87CC785 /* Pods_FightersTrivia.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1945E3B39A8CECD704BB18CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A134C9705E1A1E39B8D2A47A /* Pods_FightersTrivia.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4553D5A81B31F18AB348C7DF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7658956D60BA29435DE8C9F9 /* Pods-FightersTrivia.debug.xcconfig */,
+				1325351173E1AAF2590AE388 /* Pods-FightersTrivia.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AC6F20431DD1D4F3009C46B7 = {
+			isa = PBXGroup;
+			children = (
+				AC0B56891E5F54E300CFA7F4 /*  */,
+				AC0B567A1E5F539F00CFA7F4 /* MPAnimation.h */,
+				AC0B567B1E5F539F00CFA7F4 /* MPAnimation.m */,
+				AC0B567F1E5F539F00CFA7F4 /* MPFoldEnumerations.h */,
+				AC0B56801E5F539F00CFA7F4 /* MPFoldTransition.h */,
+				AC0B56811E5F539F00CFA7F4 /* MPFoldTransition.m */,
+				AC0B56821E5F539F00CFA7F4 /* MPTransition.h */,
+				AC0B56831E5F539F00CFA7F4 /* MPTransition.m */,
+				AC0B56841E5F539F00CFA7F4 /* MPTransitionEnumerations.h */,
+				AC0B566E1E5F51EF00CFA7F4 /* MPFoldModalSegue.h */,
+				AC0B566F1E5F51EF00CFA7F4 /* MPFoldModalSegue.m */,
+				AC0B56701E5F51EF00CFA7F4 /* MPFoldNavPopSegue.h */,
+				AC0B56711E5F51EF00CFA7F4 /* MPFoldNavPopSegue.m */,
+				AC0B56721E5F51EF00CFA7F4 /* MPFoldNavPushSegue.h */,
+				AC0B56731E5F51EF00CFA7F4 /* MPFoldNavPushSegue.m */,
+				AC0B56741E5F51EF00CFA7F4 /* MPFoldSegue.h */,
+				AC0B56751E5F51EF00CFA7F4 /* MPFoldSegue.m */,
+				AC6F204E1DD1D4F3009C46B7 /* FightersTrivia */,
+				AC731C0D1DD778B200B45B8C /* Support */,
+				AC6F204D1DD1D4F3009C46B7 /* Products */,
+				ACFD05661E5884F00042F4A4 /* Assets.xcassets */,
+				4553D5A81B31F18AB348C7DF /* Pods */,
+				1945E3B39A8CECD704BB18CD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AC6F204D1DD1D4F3009C46B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC6F204C1DD1D4F3009C46B7 /* FightersTrivia.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AC6F204E1DD1D4F3009C46B7 /* FightersTrivia */ = {
+			isa = PBXGroup;
+			children = (
+				AC30F47A1E700D880022F3D9 /* FoldTestViewController.swift */,
+				AC99117D1DD9D32300D8C934 /* QuestionViewController.swift */,
+				AC9911811DD9D9FD00D8C934 /* GameController.swift */,
+				AC274ADD1DEB105900906D1B /* GameDoneViewController.swift */,
+				AC274ADF1DEB106F00906D1B /* GameOverViewController.swift */,
+				AC86E45D1DEDD7E700191AE6 /* StartGameViewController.swift */,
+				AC14DE211DF423FF00E7E3DD /* WebViewController.swift */,
+				AC7DDFBA1DFABCEA000C1713 /* SplashScreenViewController.swift */,
+				ACD76F861E60666800ECBA70 /* TheQuestion.swift */,
+			);
+			path = FightersTrivia;
+			sourceTree = "<group>";
+		};
+		AC731C0D1DD778B200B45B8C /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				AC8E35FE1E34D15A0042B316 /* Main.storyboard */,
+				AC274AE11DEB16D200906D1B /* JUSTCODE.swift */,
+				AC99117F1DD9D48000D8C934 /* Fighter.swift */,
+				AC6F204F1DD1D4F3009C46B7 /* AppDelegate.swift */,
+				AC6F205B1DD1D4F3009C46B7 /* Info.plist */,
+			);
+			name = Support;
+			path = FightersTrivia;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AC6F204B1DD1D4F3009C46B7 /* FightersTrivia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC6F205E1DD1D4F3009C46B7 /* Build configuration list for PBXNativeTarget "FightersTrivia" */;
+			buildPhases = (
+				2F7A5114F26A4C9AD4A3D09C /* [CP] Check Pods Manifest.lock */,
+				AC6F20481DD1D4F3009C46B7 /* Sources */,
+				AC6F20491DD1D4F3009C46B7 /* Frameworks */,
+				AC6F204A1DD1D4F3009C46B7 /* Resources */,
+				D81013B54C01BB7C9BB0CEB7 /* [CP] Embed Pods Frameworks */,
+				291760CF922BA879DCC869D7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FightersTrivia;
+			productName = "Guess the Fighter, Угадай Бойца";
+			productReference = AC6F204C1DD1D4F3009C46B7 /* FightersTrivia.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AC6F20441DD1D4F3009C46B7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = apiqa;
+				TargetAttributes = {
+					AC6F204B1DD1D4F3009C46B7 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = ZNLBEN9CLK;
+						LastSwiftMigration = 0820;
+					};
+				};
+			};
+			buildConfigurationList = AC6F20471DD1D4F3009C46B7 /* Build configuration list for PBXProject "FightersTrivia" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AC6F20431DD1D4F3009C46B7;
+			productRefGroup = AC6F204D1DD1D4F3009C46B7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AC6F204B1DD1D4F3009C46B7 /* FightersTrivia */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AC6F204A1DD1D4F3009C46B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACFD05671E5884F00042F4A4 /* Assets.xcassets in Resources */,
+				AC8E35FF1E34D15A0042B316 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		291760CF922BA879DCC869D7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FightersTrivia/Pods-FightersTrivia-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2F7A5114F26A4C9AD4A3D09C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D81013B54C01BB7C9BB0CEB7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FightersTrivia/Pods-FightersTrivia-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC6F20481DD1D4F3009C46B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC274ADE1DEB105900906D1B /* GameDoneViewController.swift in Sources */,
+				AC30F47B1E700D880022F3D9 /* FoldTestViewController.swift in Sources */,
+				AC0B56851E5F539F00CFA7F4 /* MPAnimation.m in Sources */,
+				AC9911821DD9D9FD00D8C934 /* GameController.swift in Sources */,
+				AC274AE21DEB16D200906D1B /* JUSTCODE.swift in Sources */,
+				AC14DE221DF423FF00E7E3DD /* WebViewController.swift in Sources */,
+				AC7DDFBB1DFABCEA000C1713 /* SplashScreenViewController.swift in Sources */,
+				AC9911801DD9D48000D8C934 /* Fighter.swift in Sources */,
+				AC0B56761E5F51EF00CFA7F4 /* MPFoldModalSegue.m in Sources */,
+				AC0B56871E5F539F00CFA7F4 /* MPFoldTransition.m in Sources */,
+				AC86E45E1DEDD7E700191AE6 /* StartGameViewController.swift in Sources */,
+				AC274AE01DEB106F00906D1B /* GameOverViewController.swift in Sources */,
+				AC0B56771E5F51EF00CFA7F4 /* MPFoldNavPopSegue.m in Sources */,
+				AC0B56881E5F539F00CFA7F4 /* MPTransition.m in Sources */,
+				ACD76F871E60666800ECBA70 /* TheQuestion.swift in Sources */,
+				AC6F20501DD1D4F3009C46B7 /* AppDelegate.swift in Sources */,
+				AC99117E1DD9D32300D8C934 /* QuestionViewController.swift in Sources */,
+				AC0B56781E5F51EF00CFA7F4 /* MPFoldNavPushSegue.m in Sources */,
+				AC0B56791E5F51EF00CFA7F4 /* MPFoldSegue.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AC6F205C1DD1D4F3009C46B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = FightersTrivia;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AC6F205D1DD1D4F3009C46B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = FightersTrivia;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AC6F205F1DD1D4F3009C46B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7658956D60BA29435DE8C9F9 /* Pods-FightersTrivia.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = FightersTrivia/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = apiqa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AC6F20601DD1D4F3009C46B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1325351173E1AAF2590AE388 /* Pods-FightersTrivia.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = FightersTrivia/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = apiqa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AC6F20471DD1D4F3009C46B7 /* Build configuration list for PBXProject "FightersTrivia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC6F205C1DD1D4F3009C46B7 /* Debug */,
+				AC6F205D1DD1D4F3009C46B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC6F205E1DD1D4F3009C46B7 /* Build configuration list for PBXNativeTarget "FightersTrivia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC6F205F1DD1D4F3009C46B7 /* Debug */,
+				AC6F20601DD1D4F3009C46B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AC6F20441DD1D4F3009C46B7 /* Project object */;
+}
