@@ -149,11 +149,11 @@ class QuestionViewController: UIViewController {
         self.debugOneConstraints()
         self.debugTwoConstraints()
         self.debugThreeConstraints()
-        self.congratStripViewFirstStateConstraints()
-        self.congratStripViewMiddleStateConstraints()
-        self.congratStripViewThirdStateConstraints()
+    
         self.congratStripLabelConstraints()
         self.congratStripNumberConstraints()
+        
+        self.congratStripInitialConstraints()
     }
     override func viewDidAppear(_ animated: Bool) {
         self.gradientBackgroundColorAnimation()
@@ -178,23 +178,41 @@ class QuestionViewController: UIViewController {
         switch state {
         case "FIRST":
             UIView.animate(withDuration: 2.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.2, options: UIViewAnimationOptions(), animations: {
-                if self.congratStripConstraintHorizontalThirdState.isActive == true {
-                    self.congratStripConstraintHorizontalThirdState.isActive = false
-                } else if self.congratStripConstraintHorizontalMiddleState.isActive == true {
-                    self.congratStripConstraintHorizontalMiddleState.isActive = false
+                if self.congratStripConstraintHorizontalThirdState != nil {
+                    if self.congratStripConstraintHorizontalThirdState.isActive == true {
+                        self.congratStripConstraintHorizontalThirdState.isActive = false
+                    }
                 }
-                self.congratStripConstraintHorizontalFirstState.isActive = true
+                if self.congratStripConstraintHorizontalMiddleState != nil {
+                    if self.congratStripConstraintHorizontalMiddleState.isActive == true {
+                        self.congratStripConstraintHorizontalMiddleState.isActive = false
+                    }
+                }
+                if self.congratStripConstraintHorizontalFirstState != nil {
+                    self.congratStripConstraintHorizontalFirstState.isActive = true
+                } else {
+                    self.congratStripViewFirstStateConstraints()
+                }
                 self.view.layoutIfNeeded()
             }, completion: nil)
             break
         case "MIDDLE":
             UIView.animate(withDuration: 2.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.2, options: UIViewAnimationOptions(), animations: {
-                if self.congratStripConstraintHorizontalFirstState.isActive == true {
-                    self.congratStripConstraintHorizontalFirstState.isActive = false
-                } else if self.congratStripConstraintHorizontalThirdState.isActive == true {
-                    self.congratStripConstraintHorizontalThirdState.isActive = false
+                if self.congratStripConstraintHorizontalFirstState != nil {
+                    if self.congratStripConstraintHorizontalFirstState.isActive == true {
+                        self.congratStripConstraintHorizontalFirstState.isActive = false
+                    }
                 }
-                self.congratStripConstraintHorizontalMiddleState.isActive = true
+                if self.congratStripConstraintHorizontalThirdState != nil {
+                    if self.congratStripConstraintHorizontalThirdState.isActive == true {
+                        self.congratStripConstraintHorizontalThirdState.isActive = false
+                    }
+                }
+                if self.congratStripConstraintHorizontalMiddleState != nil {
+                    self.congratStripConstraintHorizontalMiddleState.isActive = true
+                } else {
+                    self.congratStripViewMiddleStateConstraints()
+                }
                 self.view.layoutIfNeeded()
             }, completion: { _ in
                 /// PICKER USER INTERACTION ENABLED
@@ -202,12 +220,21 @@ class QuestionViewController: UIViewController {
             break
         case "THIRD":
             UIView.animate(withDuration: 2.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.2, options: UIViewAnimationOptions(), animations: {
-                if self.congratStripConstraintHorizontalMiddleState.isActive == true {
-                    self.congratStripConstraintHorizontalMiddleState.isActive = false
-                } else if self.congratStripConstraintHorizontalFirstState.isActive == true {
-                    self.congratStripConstraintHorizontalFirstState.isActive = false
+                if self.congratStripConstraintHorizontalMiddleState != nil {
+                    if self.congratStripConstraintHorizontalMiddleState.isActive == true {
+                        self.congratStripConstraintHorizontalMiddleState.isActive = false
+                    }
                 }
-                self.congratStripConstraintHorizontalThirdState.isActive = true
+                if self.congratStripConstraintHorizontalFirstState != nil {
+                    if self.congratStripConstraintHorizontalFirstState.isActive == true {
+                        self.congratStripConstraintHorizontalFirstState.isActive = false
+                    }
+                }
+                if self.congratStripConstraintHorizontalThirdState != nil {
+                    self.congratStripConstraintHorizontalThirdState.isActive = true
+                } else {
+                    self.congratStripViewThirdStateConstraints()
+                }
                 self.view.layoutIfNeeded()
             }, completion: { _ in
                 /// PICKER USER INTERACTION ENABLED
@@ -218,10 +245,6 @@ class QuestionViewController: UIViewController {
         }
     }
     func setNewImage(_ imageName: String) {
-    }
-    func congratStripConstraintsSetToClose() {
-        //self.congratStripOpenConstraint.isActive = false
-        //self.congratStripCloseConstraint.isActive = true
     }
     func changeXtoDot() {
     }
@@ -266,7 +289,7 @@ class QuestionViewController: UIViewController {
     }
     
     
-    func congratStripViewFirstStateConstraints() {
+    func congratStripInitialConstraints() {
         let height = NSLayoutConstraint(item: congratStripView, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.1, constant: 0.0)
         let width = NSLayoutConstraint(item: congratStripView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0, constant: 0.0)
         let vertical = NSLayoutConstraint(item: congratStripView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 0.1, constant: 0.0)
@@ -279,28 +302,23 @@ class QuestionViewController: UIViewController {
         NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
     }
     
+    func congratStripViewFirstStateConstraints() {
+        congratStripConstraintHorizontalFirstState = NSLayoutConstraint(item: congratStripView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: -1.0, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(congratStripConstraintHorizontalFirstState)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
     func congratStripViewMiddleStateConstraints() {
-        let height = NSLayoutConstraint(item: congratStripView, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.1, constant: 0.0)
-        let width = NSLayoutConstraint(item: congratStripView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0, constant: 0.0)
-        let vertical = NSLayoutConstraint(item: congratStripView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 0.1, constant: 0.0)
         congratStripConstraintHorizontalMiddleState = NSLayoutConstraint(item: congratStripView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0)
         var constraints = [NSLayoutConstraint]()
-        constraints.append(height)
-        constraints.append(width)
         constraints.append(congratStripConstraintHorizontalMiddleState)
-        constraints.append(vertical)
         NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
     }
     
     func congratStripViewThirdStateConstraints() {
-        let height = NSLayoutConstraint(item: congratStripView, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.1, constant: 0.0)
-        let width = NSLayoutConstraint(item: congratStripView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0, constant: 0.0)
-        let vertical = NSLayoutConstraint(item: congratStripView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 0.1, constant: 0.0)
         congratStripConstraintHorizontalThirdState = NSLayoutConstraint(item: congratStripView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 3.0, constant: 0.0)
         var constraints = [NSLayoutConstraint]()
-        constraints.append(height)
-        constraints.append(width)
-        constraints.append(vertical)
         constraints.append(congratStripConstraintHorizontalThirdState)
         NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
     }
@@ -386,7 +404,7 @@ class QuestionViewController: UIViewController {
     }
     
     @IBAction func debugTwoPressed(_ sender: UIButton) {
-        congratStripSetState("MIDDLE")
+        congratStripSetState("THIRD")
         //self.segmentedControlAnimationOnPress()
         sender.isUserInteractionEnabled = false
         isViewTwoOpen = !isViewTwoOpen
@@ -401,7 +419,17 @@ class QuestionViewController: UIViewController {
     }
     
     @IBAction func debugThreePressed(_ sender: UIButton) {
-        congratStripSetState("THIRD")
+        congratStripSetState("MIDDLE")
+        sender.isUserInteractionEnabled = false
+        isViewTwoOpen = !isViewTwoOpen
+        let imageIndex = arc4random_uniform(UInt32(dataSource.images.count))
+        let image = dataSource.images[Int(imageIndex)]
+        self.secondImageView?.image = image
+        MPFoldTransition.transition(from: self.centralImageView, to: self.secondImageView, duration: 0.5, style: UInt(MPFoldStyleCubic), transitionAction: MPTransitionActionNone, completion: {_ in
+            self.centralImageView?.image = image
+            sender.isUserInteractionEnabled = true
+        })
+
     }
     
     func segmentedControlFirstValueChanged(_ sender: BetterSegmentedControl) {
