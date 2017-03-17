@@ -123,9 +123,7 @@ class StartGameViewController: UIViewController {
     
     func muteButtonAnimation(_ toRoundShape: Bool) {
         
-        let anim = CABasicAnimation(keyPath: "cornerRadius")
-        
-        
+       // let anim = CABasicAnimation(keyPath: "cornerRadius")
         UIView.animate(withDuration: 0.5, animations: {
             self.muteButton.layer.cornerRadius = toRoundShape ? 0.25 : 1.0
             }, completion: nil)

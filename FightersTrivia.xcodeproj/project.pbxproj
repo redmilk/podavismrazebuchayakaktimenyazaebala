@@ -15,6 +15,7 @@
 		AC0B56871E5F539F00CFA7F4 /* MPFoldTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0B56811E5F539F00CFA7F4 /* MPFoldTransition.m */; };
 		AC0B56881E5F539F00CFA7F4 /* MPTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0B56831E5F539F00CFA7F4 /* MPTransition.m */; };
 		AC14DE221DF423FF00E7E3DD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14DE211DF423FF00E7E3DD /* WebViewController.swift */; };
+		AC18293B1E77FEE100E923AA /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18293A1E77FEE100E923AA /* DataSource.swift */; };
 		AC274ADE1DEB105900906D1B /* GameDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC274ADD1DEB105900906D1B /* GameDoneViewController.swift */; };
 		AC274AE01DEB106F00906D1B /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC274ADF1DEB106F00906D1B /* GameOverViewController.swift */; };
 		AC274AE21DEB16D200906D1B /* JUSTCODE.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC274AE11DEB16D200906D1B /* JUSTCODE.swift */; };
@@ -53,6 +54,7 @@
 		AC0B56841E5F539F00CFA7F4 /* MPTransitionEnumerations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPTransitionEnumerations.h; path = FightersTrivia/MPTransitionEnumerations.h; sourceTree = "<group>"; };
 		AC0B56891E5F54E300CFA7F4 /*  */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ""; sourceTree = "<group>"; };
 		AC14DE211DF423FF00E7E3DD /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		AC18293A1E77FEE100E923AA /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		AC274ADD1DEB105900906D1B /* GameDoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDoneViewController.swift; sourceTree = "<group>"; };
 		AC274ADF1DEB106F00906D1B /* GameOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		AC274AE11DEB16D200906D1B /* JUSTCODE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JUSTCODE.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				AC14DE211DF423FF00E7E3DD /* WebViewController.swift */,
 				AC7DDFBA1DFABCEA000C1713 /* SplashScreenViewController.swift */,
 				ACD76F861E60666800ECBA70 /* TheQuestion.swift */,
+				AC18293A1E77FEE100E923AA /* DataSource.swift */,
 			);
 			path = FightersTrivia;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				AC6F20501DD1D4F3009C46B7 /* AppDelegate.swift in Sources */,
 				AC99117E1DD9D32300D8C934 /* QuestionViewController.swift in Sources */,
 				AC0B56781E5F51EF00CFA7F4 /* MPFoldNavPushSegue.m in Sources */,
+				AC18293B1E77FEE100E923AA /* DataSource.swift in Sources */,
 				AC0B56791E5F51EF00CFA7F4 /* MPFoldSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,7 +423,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = ZNLBEN9CLK;
 				INFOPLIST_FILE = FightersTrivia/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = apiqa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -442,7 +446,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = ZNLBEN9CLK;
 				INFOPLIST_FILE = FightersTrivia/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = apiqa;
 				PRODUCT_NAME = "$(TARGET_NAME)";

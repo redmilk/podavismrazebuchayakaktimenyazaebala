@@ -11,18 +11,7 @@
 
 
 import UIKit
-
-func setupGradient(_ layerAttachTo: CALayer, frame: CGRect, gradient: CAGradientLayer, colors: [CGColor], locations: [NSNumber], startPoint: CGPoint, endPoint: CGPoint, zPosition: Float) {
-    
-    gradient.frame = frame
-    gradient.colors = colors
-    gradient.locations = locations
-    gradient.startPoint = startPoint
-    gradient.endPoint = endPoint
-    gradient.zPosition = CGFloat(zPosition)
-    layerAttachTo.addSublayer(gradient)
-}
-
+import BetterSegmentedControl
 
 // IMPORTANT FOR CONSTRAINTS
 extension NSLayoutConstraint {
@@ -41,26 +30,70 @@ var qVController: QuestionViewController!
 
 class QuestionViewController: UIViewController {
     
+    var currentQuestion: TheQuestion = {
+        let question = TheQuestion(["Cars", "Lion King", "Finding Nemo", "The Bitch", "Cinderella", "Ice Age"], 2)
+        return question
+    }()
+    
     @IBOutlet weak var centralImageView: UIImageView!
+    @IBOutlet weak var congratStripView: UIView!
+    @IBOutlet weak var congratStripLabel: UILabel!
+    @IBOutlet weak var congratStripNumber: UILabel!
+    
     @IBOutlet weak var secondImageView: UIImageView!
-    @IBOutlet weak var bottomButton: UIButton!
+    @IBOutlet weak var debug1: UIButton!
+    @IBOutlet weak var debug2: UIButton!
+    @IBOutlet weak var debug3: UIButton!
+    
+    var betterSegmentedControlFirst: BetterSegmentedControl = {
+        let betterSegmentedControl = BetterSegmentedControl(
+            frame: CGRect.zero,
+            titles: ["Default", "Default"],
+            index: 5,
+            backgroundColor: .clear,
+            titleColor: .white,
+            indicatorViewBackgroundColor: .red,
+            selectedTitleColor: .white)
+        betterSegmentedControl.titleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightThin)
+        betterSegmentedControl.selectedTitleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightLight)
+        betterSegmentedControl.cornerRadius = 20.0
+        return betterSegmentedControl
+    }()
+    
+    var betterSegmentedControlSecond: BetterSegmentedControl = {
+        let betterSegmentedControl = BetterSegmentedControl(
+            frame: CGRect.zero,
+            titles: ["Default", "Default"],
+            index: 5,
+            backgroundColor: .clear,
+            titleColor: .white,
+            indicatorViewBackgroundColor: .red,
+            selectedTitleColor: .white)
+        betterSegmentedControl.titleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightThin)
+        betterSegmentedControl.selectedTitleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightLight)
+        betterSegmentedControl.cornerRadius = 20.0
+        return betterSegmentedControl
+    }()
     
     var gradient: CAGradientLayer!
+    var segmentedControlFirstGradient: CAGradientLayer!
+    var segmentedControlSecondGradient: CAGradientLayer!
+    
+    
     var currentSelectedAnswer: String!
     var currentRowIndex: Int = 0
-    var congratStripOpenConstraint: NSLayoutConstraint!
-    var congratStripCloseConstraint: NSLayoutConstraint!
-    var answerStripOpenConstraint: NSLayoutConstraint!
-    var answerStripCloseConstraint: NSLayoutConstraint!
+    var congratStripConstraintHorizontalFirstState: NSLayoutConstraint!
+    var congratStripConstraintHorizontalMiddleState: NSLayoutConstraint!
+    var congratStripConstraintHorizontalThirdState: NSLayoutConstraint!
+
+    
     var phrases: [String] = [String]()
     var isBetweenQuestions: Bool = false
     var soundMute: Bool?
     
-    //central views
-    
-    var images: [UIImage] = {
-        let images: [UIImage] = [UIImage(named: "cars")!, UIImage(named: "findingnemo")!, UIImage(named: "duckstory")!, UIImage(named: "iceage")!, UIImage(named: "pinoccio")!, UIImage(named: "toystory")!, UIImage(named: "lionking")!]
-        return images
+    var dataSource: DataSource = {
+        let dataSource = DataSource()
+        return dataSource
     }()
     
     var scoreLabel: UILabel? = {
@@ -85,16 +118,48 @@ class QuestionViewController: UIViewController {
         theGameController.scoreLabel = self.scoreLabel
         theGameController.startGame()
         isViewTwoOpen = false
-        self.setBottomButtonConstraints()
         // initial image
-        self.centralImageView.image = images[0]
+        self.centralImageView.image = dataSource.images[0]
 
+        centralImageView.addSubview(debug1)
+        centralImageView.addSubview(debug2)
+        centralImageView.addSubview(debug3)
+        centralImageView.isUserInteractionEnabled = true
+        
+        //currentQuestion = TheQuestion(["One", "Two", "Six", "Four"], 2)
+        
+        /**************************SEGMENTED*********************/
+        betterSegmentedControlFirst.titles = Array(currentQuestion.answers[0..<3])
+        betterSegmentedControlSecond.titles = Array(currentQuestion.answers[3..<6])
+
+        betterSegmentedControlFirst.addTarget(self, action: #selector(self.segmentedControlFirstValueChanged(_:)), for: .valueChanged)
+        betterSegmentedControlSecond.addTarget(self, action: #selector(self.segmentedControlSecondValueChanged(_:)), for: .valueChanged)
+        
+        view.addSubview(betterSegmentedControlFirst)
+        view.addSubview(betterSegmentedControlSecond)
+        /********************************************************/
+        
+        /*secondImageView.addSubview(debug1)
+        secondImageView.addSubview(debug2)
+        secondImageView.isUserInteractionEnabled = true*/
     }
     override func viewWillAppear(_ animated: Bool) {
+        self.setBetterSegmentedControlFirstConstraints()
+        self.setBetterSegmentedControlSecondConstraints()
+        self.debugOneConstraints()
+        self.debugTwoConstraints()
+        self.debugThreeConstraints()
+        self.congratStripViewFirstStateConstraints()
+        self.congratStripViewMiddleStateConstraints()
+        self.congratStripViewThirdStateConstraints()
+        self.congratStripLabelConstraints()
+        self.congratStripNumberConstraints()
     }
     override func viewDidAppear(_ animated: Bool) {
         self.gradientBackgroundColorAnimation()
         self.gradientBackgroundChangePositionAnimation()
+        self.segmentedControlFirstGradientSetup()
+        self.segmentedControlSecondGradientSetup()
     }
     func refreshCurrentFighterNameLabelWithAnimation(_ newLabelText: String, animationDirection: AnimationDirection) {
         //self.fighterNameLabel.text = newLabelText
@@ -104,58 +169,45 @@ class QuestionViewController: UIViewController {
     {
         performSegue(withIdentifier: identif, sender: nil)
     }
-    func answerButtonSetState(_ state: String) {
-        if theGameController.gameIsOver == true {
-            return
-        }
-        switch state {
-        case "OPEN":
-            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.7, options: [], animations: {
-                if self.answerStripOpenConstraint.isActive == false {
-                    self.answerStripOpenConstraint.isActive = true
-                    self.answerStripCloseConstraint.isActive = false
-                }
-                self.view.layoutIfNeeded()          ///      ///       ///     ///
-                // //////////////////////////////lllllllllllllllllllllllllllllll//
-            }, completion: { _ in
-            })
-            break
-        case "CLOSE":
-            UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.7, options: [], animations: {
-                if self.answerStripCloseConstraint.isActive == false {
-                    self.answerStripCloseConstraint.isActive = true
-                    self.answerStripOpenConstraint.isActive = false
-                }
-                self.view.layoutIfNeeded()          ///     ///     ///     ///
-                // //////////////////////////////lllllllllllllllllllllllllllllll//
-            }, completion: { _ in
-            })
-            break
-        default:
-            break
-        }
-    }
+    
     func congratStripSetState(_ state: String) {
         if theGameController.gameIsOver == true {
             return
         }
         self.setRandomPhrase() /// SET RAAAANDOM PHRASEEEE
         switch state {
-        case "OPEN":
+        case "FIRST":
             UIView.animate(withDuration: 2.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.2, options: UIViewAnimationOptions(), animations: {
-                if self.congratStripCloseConstraint.isActive == true {
-                    self.congratStripCloseConstraint.isActive = false
-                    self.congratStripOpenConstraint.isActive = true
+                if self.congratStripConstraintHorizontalThirdState.isActive == true {
+                    self.congratStripConstraintHorizontalThirdState.isActive = false
+                } else if self.congratStripConstraintHorizontalMiddleState.isActive == true {
+                    self.congratStripConstraintHorizontalMiddleState.isActive = false
                 }
+                self.congratStripConstraintHorizontalFirstState.isActive = true
                 self.view.layoutIfNeeded()
             }, completion: nil)
             break
-        case "CLOSE":
+        case "MIDDLE":
             UIView.animate(withDuration: 2.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.2, options: UIViewAnimationOptions(), animations: {
-                if self.congratStripOpenConstraint.isActive == true {
-                    self.congratStripOpenConstraint.isActive = false
-                    self.congratStripCloseConstraint.isActive = true
+                if self.congratStripConstraintHorizontalFirstState.isActive == true {
+                    self.congratStripConstraintHorizontalFirstState.isActive = false
+                } else if self.congratStripConstraintHorizontalThirdState.isActive == true {
+                    self.congratStripConstraintHorizontalThirdState.isActive = false
                 }
+                self.congratStripConstraintHorizontalMiddleState.isActive = true
+                self.view.layoutIfNeeded()
+            }, completion: { _ in
+                /// PICKER USER INTERACTION ENABLED
+            })
+            break
+        case "THIRD":
+            UIView.animate(withDuration: 2.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.2, options: UIViewAnimationOptions(), animations: {
+                if self.congratStripConstraintHorizontalMiddleState.isActive == true {
+                    self.congratStripConstraintHorizontalMiddleState.isActive = false
+                } else if self.congratStripConstraintHorizontalFirstState.isActive == true {
+                    self.congratStripConstraintHorizontalFirstState.isActive = false
+                }
+                self.congratStripConstraintHorizontalThirdState.isActive = true
                 self.view.layoutIfNeeded()
             }, completion: { _ in
                 /// PICKER USER INTERACTION ENABLED
@@ -168,8 +220,8 @@ class QuestionViewController: UIViewController {
     func setNewImage(_ imageName: String) {
     }
     func congratStripConstraintsSetToClose() {
-        self.congratStripOpenConstraint.isActive = false
-        self.congratStripCloseConstraint.isActive = true
+        //self.congratStripOpenConstraint.isActive = false
+        //self.congratStripCloseConstraint.isActive = true
     }
     func changeXtoDot() {
     }
@@ -182,33 +234,190 @@ class QuestionViewController: UIViewController {
     func setRandomPhrase() {
         //let rand = Int(arc4random_uniform(UInt32(phrases.count)))
     }
-    @IBAction func bottomButtonPressed(_ sender: UIButton) {
-        self.answerButtonAnimationOnPress()
+
+    func setBetterSegmentedControlFirstConstraints() {
+         ///translatesAutoresizingMaskIntoConstraints - in extension for NSLayourConstraints
+         //knopka testovaya bila v samom nizy, kak next button
+         let height = NSLayoutConstraint(item: betterSegmentedControlFirst, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.1, constant: 0.0)
+         let width = NSLayoutConstraint(item: betterSegmentedControlFirst, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0, constant: 0.0)
+        let vertical = NSLayoutConstraint(item: betterSegmentedControlFirst, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1.8, constant: 0.0)
+        let horizontal = NSLayoutConstraint(item: betterSegmentedControlFirst, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(height)
+        constraints.append(width)
+        constraints.append(vertical)
+        constraints.append(horizontal)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
+    func setBetterSegmentedControlSecondConstraints() {
+        ///translatesAutoresizingMaskIntoConstraints - in extension for NSLayourConstraints
+        //knopka testovaya bila v samom nizy, kak next button
+        let height = NSLayoutConstraint(item: betterSegmentedControlSecond, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.1, constant: 0.0)
+        let width = NSLayoutConstraint(item: betterSegmentedControlSecond, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0, constant: 0.0)
+        let vertical = NSLayoutConstraint(item: betterSegmentedControlSecond, attribute: .bottom, relatedBy: .equal, toItem: betterSegmentedControlFirst, attribute: .top, multiplier: 0.99, constant: 0.0)
+        let horizontal = NSLayoutConstraint(item: betterSegmentedControlSecond, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(height)
+        constraints.append(width)
+        constraints.append(vertical)
+        constraints.append(horizontal)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
+    
+    func congratStripViewFirstStateConstraints() {
+        let height = NSLayoutConstraint(item: congratStripView, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.1, constant: 0.0)
+        let width = NSLayoutConstraint(item: congratStripView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0, constant: 0.0)
+        let vertical = NSLayoutConstraint(item: congratStripView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 0.1, constant: 0.0)
+        congratStripConstraintHorizontalFirstState = NSLayoutConstraint(item: congratStripView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: -1.0, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(height)
+        constraints.append(width)
+        constraints.append(vertical)
+        constraints.append(congratStripConstraintHorizontalFirstState)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
+    func congratStripViewMiddleStateConstraints() {
+        let height = NSLayoutConstraint(item: congratStripView, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.1, constant: 0.0)
+        let width = NSLayoutConstraint(item: congratStripView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0, constant: 0.0)
+        let vertical = NSLayoutConstraint(item: congratStripView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 0.1, constant: 0.0)
+        congratStripConstraintHorizontalMiddleState = NSLayoutConstraint(item: congratStripView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(height)
+        constraints.append(width)
+        constraints.append(congratStripConstraintHorizontalMiddleState)
+        constraints.append(vertical)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
+    func congratStripViewThirdStateConstraints() {
+        let height = NSLayoutConstraint(item: congratStripView, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.1, constant: 0.0)
+        let width = NSLayoutConstraint(item: congratStripView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0, constant: 0.0)
+        let vertical = NSLayoutConstraint(item: congratStripView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 0.1, constant: 0.0)
+        congratStripConstraintHorizontalThirdState = NSLayoutConstraint(item: congratStripView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 3.0, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(height)
+        constraints.append(width)
+        constraints.append(vertical)
+        constraints.append(congratStripConstraintHorizontalThirdState)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
+    func debugOneConstraints() {
+        let height = NSLayoutConstraint(item: debug1, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.05, constant: 0.0)
+        let width = NSLayoutConstraint(item: debug1, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 0.2, constant: 0.0)
+        let vertical = NSLayoutConstraint(item: debug1, attribute: .bottom, relatedBy: .equal, toItem: centralImageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        let horizontal = NSLayoutConstraint(item: debug1, attribute: .leading, relatedBy: .equal, toItem: centralImageView, attribute: .leading, multiplier: 1.0, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(height)
+        constraints.append(width)
+        constraints.append(vertical)
+        constraints.append(horizontal)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
+    func debugTwoConstraints() {
+        let height = NSLayoutConstraint(item: debug2, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.05, constant: 0.0)
+        let width = NSLayoutConstraint(item: debug2, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 0.2, constant: 0.0)
+        let vertical = NSLayoutConstraint(item: debug2, attribute: .bottom, relatedBy: .equal, toItem: centralImageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        let horizontal = NSLayoutConstraint(item: debug2, attribute: .trailing, relatedBy: .equal, toItem: centralImageView, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(height)
+        constraints.append(width)
+        constraints.append(vertical)
+        constraints.append(horizontal)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
+    func debugThreeConstraints() {
+        let height = NSLayoutConstraint(item: debug3, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.05, constant: 0.0)
+        let width = NSLayoutConstraint(item: debug3, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 0.2, constant: 0.0)
+        let vertical = NSLayoutConstraint(item: debug3, attribute: .bottom, relatedBy: .equal, toItem: centralImageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        let horizontal = NSLayoutConstraint(item: debug3, attribute: .centerX, relatedBy: .equal, toItem: centralImageView, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(height)
+        constraints.append(width)
+        constraints.append(vertical)
+        constraints.append(horizontal)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
+    func congratStripLabelConstraints() {
+        let height = NSLayoutConstraint(item: congratStripLabel, attribute: .height, relatedBy: .equal, toItem: congratStripView, attribute: .height, multiplier: 1.0, constant: 0.0)
+        let width = NSLayoutConstraint(item: congratStripLabel, attribute: .width, relatedBy: .equal, toItem: congratStripView, attribute: .width, multiplier: 0.8, constant: 0.0)
+        let vertical = NSLayoutConstraint(item: congratStripLabel, attribute: .centerY, relatedBy: .equal, toItem: congratStripView, attribute: .centerY, multiplier: 1.0, constant: 0.0)
+        let horizontal = NSLayoutConstraint(item: congratStripLabel, attribute: .centerX, relatedBy: .equal, toItem: congratStripView, attribute: .centerX, multiplier: 0.8, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(height)
+        constraints.append(width)
+        constraints.append(vertical)
+        constraints.append(horizontal)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
+    func congratStripNumberConstraints() {
+        let height = NSLayoutConstraint(item: congratStripNumber, attribute: .height, relatedBy: .equal, toItem: congratStripView, attribute: .height, multiplier: 1.0, constant: 0.0)
+        let width = NSLayoutConstraint(item: congratStripNumber, attribute: .width, relatedBy: .equal, toItem: congratStripView, attribute: .width, multiplier: 0.2, constant: 0.0)
+        let vertical = NSLayoutConstraint(item: congratStripNumber, attribute: .centerY, relatedBy: .equal, toItem: congratStripView, attribute: .centerY, multiplier: 1.0, constant: 0.0)
+        let horizontal = NSLayoutConstraint(item: congratStripNumber, attribute: .centerX, relatedBy: .equal, toItem: congratStripView, attribute: .centerX, multiplier: 1.8, constant: 0.0)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(height)
+        constraints.append(width)
+        constraints.append(vertical)
+        constraints.append(horizontal)
+        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    }
+    
+    @IBAction func debugOnePressed(_ sender: UIButton) {
+        congratStripSetState("FIRST")
+        //self.segmentedControlAnimationOnPress()
         sender.isUserInteractionEnabled = false
         isViewTwoOpen = !isViewTwoOpen
-        let imageIndex = arc4random_uniform(UInt32(self.images.count))
-        let image = images[Int(imageIndex)]
+        let imageIndex = arc4random_uniform(UInt32(dataSource.images.count))
+        let image = dataSource.images[Int(imageIndex)]
         self.secondImageView?.image = image
         MPFoldTransition.transition(from: self.centralImageView, to: self.secondImageView, duration: 0.5, style: UInt(MPFoldStyleCubic), transitionAction: MPTransitionActionNone, completion: {_ in
             self.centralImageView?.image = image
             sender.isUserInteractionEnabled = true
         })
+
     }
-    func setBottomButtonConstraints() {
-         ///translatesAutoresizingMaskIntoConstraints - in extension for NSLayourConstraints
-         //knopka testovaya bila v samom nizy, kak next button
-         let buttonHeight = NSLayoutConstraint(item: self.bottomButton, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.1, constant: 0.0)
-         let buttonWidth = NSLayoutConstraint(item: self.bottomButton, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0, constant: 0.0)
-        let buttonVertical = NSLayoutConstraint(item: self.bottomButton, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1.9, constant: 0.0)
-        let buttonHorizontal = NSLayoutConstraint(item: self.bottomButton, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0)
-        
-        var constraints = [NSLayoutConstraint]()
-        constraints.append(buttonHeight)
-        constraints.append(buttonWidth)
-        constraints.append(buttonHorizontal)
-        constraints.append(buttonVertical)
-        NSLayoutConstraint.useAndActivateConstraints(constraints: constraints)
+    
+    @IBAction func debugTwoPressed(_ sender: UIButton) {
+        congratStripSetState("MIDDLE")
+        //self.segmentedControlAnimationOnPress()
+        sender.isUserInteractionEnabled = false
+        isViewTwoOpen = !isViewTwoOpen
+        let imageIndex = arc4random_uniform(UInt32(dataSource.images.count))
+        let image = dataSource.images[Int(imageIndex)]
+        self.secondImageView?.image = image
+        MPFoldTransition.transition(from: self.centralImageView, to: self.secondImageView, duration: 0.5, style: UInt(MPFoldStyleCubic), transitionAction: MPTransitionActionNone, completion: {_ in
+            self.centralImageView?.image = image
+            sender.isUserInteractionEnabled = true
+        })
+
     }
+    
+    @IBAction func debugThreePressed(_ sender: UIButton) {
+        congratStripSetState("THIRD")
+    }
+    
+    func segmentedControlFirstValueChanged(_ sender: BetterSegmentedControl) {
+        self.segmentedControlAnimationOnPress()
+    }
+    
+    func segmentedControlSecondValueChanged(_ sender: BetterSegmentedControl) {
+        self.segmentedControlAnimationOnPress()
+    }
+    
+    /*let index: Int = Int(self.betterSegmentedControlSecond.index)
+     let answers = currentQuestion.answers
+     let hui = answers[index]
+     self.debug1.setTitle(hui, for: .normal)
+     self.debug2.setTitle(hui, for: .normal) */
+  
 }
 
                             // GRADIENT
@@ -237,6 +446,33 @@ extension QuestionViewController {
         gradient.zPosition = -10
         self.view.layer.addSublayer(gradient)
     }
+    
+    func segmentedControlFirstGradientSetup() {
+        segmentedControlFirstGradient = CAGradientLayer()
+        segmentedControlFirstGradient.colors = [UIColor.green.cgColor, UIColor.red.cgColor, UIColor.blue.cgColor]
+        segmentedControlFirstGradient.locations = [0.0, 0.0, 1.0]
+        segmentedControlFirstGradient.startPoint = CGPoint(x: 0.0, y: 1.2)
+        segmentedControlFirstGradient.endPoint = CGPoint(x: 1.0, y: 0.8)
+        segmentedControlFirstGradient.frame = betterSegmentedControlFirst.frame
+        segmentedControlFirstGradient.zPosition = -1
+        segmentedControlFirstGradient.cornerRadius = 20.0
+        //asdf.backgroundColor = UIColor.clear
+        self.view.layer.addSublayer(segmentedControlFirstGradient)
+    }
+    
+    func segmentedControlSecondGradientSetup() {
+        segmentedControlSecondGradient = CAGradientLayer()
+        segmentedControlSecondGradient.colors = [UIColor.green.cgColor, UIColor.red.cgColor, UIColor.blue.cgColor]
+        segmentedControlSecondGradient.locations = [0.0, 0.0, 1.0]
+        segmentedControlSecondGradient.startPoint = CGPoint(x: 0.0, y: 1.2)
+        segmentedControlSecondGradient.endPoint = CGPoint(x: 1.0, y: 0.8)
+        segmentedControlSecondGradient.frame = betterSegmentedControlSecond.frame
+        segmentedControlSecondGradient.zPosition = -1
+        segmentedControlSecondGradient.cornerRadius = 20.0
+        //asdf.backgroundColor = UIColor.clear
+        self.view.layer.addSublayer(segmentedControlSecondGradient)
+    }
+    
     func gradientBackgroundColorAnimation() {
         let anim = CABasicAnimation(keyPath: "colors")
         anim.fromValue = [UIColor.white.cgColor, UIColor.green.cgColor, UIColor.white.cgColor]
@@ -298,16 +534,21 @@ extension QuestionViewController {
             auxLabel.removeFromSuperview()
         })
     }
-    func answerButtonAnimationOnPress() {
-         let anim = CASpringAnimation(keyPath: "transform.scale")
-         anim.damping = 7.9
-         anim.initialVelocity = 15.0
-         //anim.stiffness = 100.0
-         anim.mass = 1.0
-         anim.duration = anim.settlingDuration
-         anim.fromValue = 1.2
-         anim.toValue = 1.0
-         self.bottomButton.layer.add(anim, forKey: nil)
+    
+    func segmentedControlAnimationOnPress() {
+        let anim = CASpringAnimation(keyPath: "transform.scale")
+        anim.damping = 7.9
+        anim.initialVelocity = 15.0
+        //anim.stiffness = 100.0
+        anim.mass = 1.0
+        anim.duration = anim.settlingDuration
+        anim.fromValue = 1.2
+        anim.toValue = 1.0
+        self.betterSegmentedControlFirst.layer.add(anim, forKey: nil)
+        self.betterSegmentedControlSecond.layer.add(anim, forKey: nil)
+
+        self.segmentedControlFirstGradient.add(anim, forKey: nil)
+        self.segmentedControlSecondGradient.add(anim, forKey: nil)
     }
 }
 

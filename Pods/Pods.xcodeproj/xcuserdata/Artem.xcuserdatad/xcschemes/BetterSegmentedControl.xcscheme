@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '1ED8BE8BD6A53853974A60E1AC8B1019'
-               BlueprintName = 'AFNetworking'
+               BlueprintIdentifier = '2E13B5BED48305DAFCA2C71A8E98913B'
+               BlueprintName = 'BetterSegmentedControl'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'AFNetworking.framework'>
+               BuildableName = 'BetterSegmentedControl.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AFNetworking.xcscheme</key>
+		<key>BetterSegmentedControl.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1ED8BE8BD6A53853974A60E1AC8B1019</key>
+		<key>2E13B5BED48305DAFCA2C71A8E98913B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BFA28442D9A066F1A32171790791BFF5</key>
+		<key>9048E29DA4EBBAC1332DE2005C5C86E8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

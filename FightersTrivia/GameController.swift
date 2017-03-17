@@ -30,7 +30,7 @@ class GameController {
     var currentLevelIndex: Int = 1
 
     init() {
-        //highscore
+        //highscore check, first launch check
         if let hs = UserDefaults.standard.value(forKey: "highscore") as? Int {
             self.highscore = hs
         } else {
