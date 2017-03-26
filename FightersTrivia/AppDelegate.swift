@@ -21,10 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func rotated() {
         if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
-            print("Landscape")
+            //print("Landscape")
             
         } else if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
-            print("Portrait")
+            //print("Portrait")
         }
     }
 

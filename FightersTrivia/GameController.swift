@@ -17,18 +17,25 @@ var theGameController: GameController!
 
 class GameController {
     
+    var questions: [TheQuestion] = {
+        var questions = [TheQuestion]()
+        return questions
+    }()
+    
     var currentQuestion: TheQuestion!
+    var currentQuestionIndex: Int = 0
+    var currentQuestionAnswerList = [String]()
+    var answerListCount: Int = 6
+    var currentQuestionRightIndex: Int!
+    
+    var isItFirstQuestion: Bool = true
     var score: Int = 0
     var highscore: Int
     var scoreLabel: UILabel?
     var soundMute: Bool?
     var gameIsOver: Bool = false
+    var dataSource: DataSource!
     
-    var questionsInLevel: Int  = 5
-    var isItFirstQuestion: Bool = true
-    var currentQuestionIndex: Int = 0
-    var currentLevelIndex: Int = 1
-
     init() {
         //highscore check, first launch check
         if let hs = UserDefaults.standard.value(forKey: "highscore") as? Int {
@@ -36,12 +43,12 @@ class GameController {
         } else {
             self.highscore = 0
         }
+        self.dataSource = DataSource()
+        questions = dataSource.questions
     }
    
     func startGame() {
-        ///zapustit igru
         self.initGame()
-        
     }
     
     func restartGame() {
@@ -49,7 +56,12 @@ class GameController {
     }
     
     func initCurrentQuestion() {
-       
+        currentQuestion = questions[currentQuestionIndex]
+        currentQuestionAnswerList = getRandomAnswers(howmany: answerListCount)
+        currentQuestionRightIndex = generateRightAnswer()
+        qVController.switchImage()
+        qVController.initSegmentedControl()
+        qVController.getAnswersForSegmentedControls()
     }
     
     func initGame() {
@@ -57,16 +69,36 @@ class GameController {
         self.gameIsOver = false
         self.isItFirstQuestion = true
         self.scoreLabel!.text = score.description
-        
+        self.currentQuestionIndex = 0
+        self.highscore = UserDefaults.standard.value(forKey: "highscore") as! Int
+        self.initCurrentQuestion()
     }
     
-    func initStartUpGameValues() {
-        self.score = 0
-        self.gameIsOver = false
-        self.isItFirstQuestion = true
-        self.scoreLabel!.text = score.description
-        self.highscore = UserDefaults.standard.value(forKey: "highscore") as! Int
+    func getRandomAnswers(howmany: Int) -> [String] {
+        var result = [String]()
+        var randomQuestionForAnswersList: TheQuestion!
+        for _ in 1...howmany {
+            let rand = Int(arc4random_uniform(UInt32(dataSource.questions.count)))
+            randomQuestionForAnswersList = dataSource.questions[rand]
+            ///esli imya sluchainogo sovpadaet s nashim tekushim v igre ili takoi uzhe dobavlen v spisok otvetov
+            while randomQuestionForAnswersList.rightAnswerAndTitle == self.currentQuestion.rightAnswerAndTitle || result.contains(where: { $0 == randomQuestionForAnswersList.rightAnswerAndTitle }) {
+                let rand = arc4random_uniform(UInt32(dataSource.questions.count))
+                randomQuestionForAnswersList = dataSource.questions[Int(rand)]
+            }
+            result.append(randomQuestionForAnswersList.rightAnswerAndTitle)
+        }
+        self.currentQuestionAnswerList = result
+        return result
     }
+    
+    func generateRightAnswer() -> Int {
+        var rand = 0
+        rand = Int(arc4random_uniform(UInt32(self.answerListCount)))
+        self.currentQuestionAnswerList[rand] = self.currentQuestion.rightAnswerAndTitle
+        self.currentQuestionRightIndex = rand
+        return rand
+    }
+    
     
     // MARK: - player was wrong
     func playerWasWrongSkipThisQuestion() {
@@ -74,10 +106,24 @@ class GameController {
     }
     // MARK: - player was right
     func playerWasRightGoToTheNextQuestion() {
-        
+        currentQuestionIndex += 1
+        initCurrentQuestion()
     }
+    
     // MARK: - check right or wrong
-    func checkRightOrWrong() {
+    func checkRightOrWrong(_ answer: String) {
+        if answer == currentQuestion.rightAnswerAndTitle {
+            playSound("RIGHT")
+            qVController.congratStripSetState("MIDDLE")
+            let triggerTime = (Int64(NSEC_PER_SEC) * Int64(2))
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(triggerTime) / Double(NSEC_PER_SEC), execute: { () -> Void in
+                qVController.congratStripSetState("THIRD")
+                qVController.removeSegmentedControls()
+                self.playerWasRightGoToTheNextQuestion()
+            })
+        } else {
+            playSound("WRONG")
+        }
     }
     
     // MARK: - right answer
@@ -92,8 +138,6 @@ class GameController {
     // MARK: - to the next question
     func goToTheNextQuestion() {
     }
-    
-    
     
     ///     GAME DONE
     func wholeGameIsPathedBy() {

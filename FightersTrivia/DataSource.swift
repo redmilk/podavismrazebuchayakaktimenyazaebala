@@ -9,8 +9,11 @@
 import Foundation
 
 class DataSource : NSObject {
-    var images: [UIImage] = {
-        let images: [UIImage] = [UIImage(named: "cars")!, UIImage(named: "findingnemo")!, UIImage(named: "duckstory")!, UIImage(named: "iceage")!, UIImage(named: "pinoccio")!, UIImage(named: "toystory")!, UIImage(named: "lionking")!]
-        return images
+    
+    
+    var questions: [TheQuestion] = {
+        let questions: [TheQuestion] = [TheQuestion(UIImage(named: "cars")!, "Cars"), TheQuestion(UIImage(named: "findingnemo")!, "Finding Nemo"), TheQuestion(UIImage(named: "lionking")!, "Lion King"), TheQuestion(UIImage(named: "pinoccio")!, "Pinoccio"), TheQuestion(UIImage(named: "duckstory")!, "Duck Story"), TheQuestion(UIImage(named: "toystory")!, "Toystory"), TheQuestion(UIImage(named: "lightsindarkness")!, "Lights in Darkness"),]
+        return questions
     }()
+    
 }

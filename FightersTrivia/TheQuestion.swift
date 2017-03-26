@@ -10,11 +10,11 @@ import Foundation
 
 class TheQuestion: NSObject {
     
-    var answers = [String]()
-    var rightAnswerIndex: UInt
+    var image: UIImage!
+    var rightAnswerAndTitle: String!
     
-    init(_ answers: [String], _ rightAnswerIndex: UInt) {
-        self.answers = answers
-        self.rightAnswerIndex = rightAnswerIndex
+    init(_ image: UIImage, _ rightAnswerAndTitle: String) {
+        self.image = image
+        self.rightAnswerAndTitle = rightAnswerAndTitle
     }
 }

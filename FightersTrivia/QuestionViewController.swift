@@ -30,10 +30,7 @@ var qVController: QuestionViewController!
 
 class QuestionViewController: UIViewController {
     
-    var currentQuestion: TheQuestion = {
-        let question = TheQuestion(["Cars", "Lion King", "Finding Nemo", "The Bitch", "Cinderella", "Ice Age"], 2)
-        return question
-    }()
+    var currentQuestion: TheQuestion!
     
     @IBOutlet weak var centralImageView: UIImageView!
     @IBOutlet weak var congratStripView: UIView!
@@ -45,6 +42,9 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var debug2: UIButton!
     @IBOutlet weak var debug3: UIButton!
     
+    var betterSegmentedControlCurrentTitlesFirst = [String]()
+    var betterSegmentedControlCurrentTitlesSecond = [String]()
+    
     var betterSegmentedControlFirst: BetterSegmentedControl = {
         let betterSegmentedControl = BetterSegmentedControl(
             frame: CGRect.zero,
@@ -52,7 +52,7 @@ class QuestionViewController: UIViewController {
             index: 5,
             backgroundColor: .clear,
             titleColor: .white,
-            indicatorViewBackgroundColor: .red,
+            indicatorViewBackgroundColor: .black,
             selectedTitleColor: .white)
         betterSegmentedControl.titleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightThin)
         betterSegmentedControl.selectedTitleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightLight)
@@ -91,11 +91,6 @@ class QuestionViewController: UIViewController {
     var isBetweenQuestions: Bool = false
     var soundMute: Bool?
     
-    var dataSource: DataSource = {
-        let dataSource = DataSource()
-        return dataSource
-    }()
-    
     var scoreLabel: UILabel? = {
         let label = UILabel(frame: .zero)
         return label
@@ -119,29 +114,16 @@ class QuestionViewController: UIViewController {
         theGameController.startGame()
         isViewTwoOpen = false
         // initial image
-        self.centralImageView.image = dataSource.images[0]
+        self.centralImageView.image = theGameController.dataSource.questions[0].image
 
         centralImageView.addSubview(debug1)
         centralImageView.addSubview(debug2)
         centralImageView.addSubview(debug3)
         centralImageView.isUserInteractionEnabled = true
         
-        //currentQuestion = TheQuestion(["One", "Two", "Six", "Four"], 2)
+        currentQuestion = theGameController.questions[0]
         
-        /**************************SEGMENTED*********************/
-        betterSegmentedControlFirst.titles = Array(currentQuestion.answers[0..<3])
-        betterSegmentedControlSecond.titles = Array(currentQuestion.answers[3..<6])
-
-        betterSegmentedControlFirst.addTarget(self, action: #selector(self.segmentedControlFirstValueChanged(_:)), for: .valueChanged)
-        betterSegmentedControlSecond.addTarget(self, action: #selector(self.segmentedControlSecondValueChanged(_:)), for: .valueChanged)
-        
-        view.addSubview(betterSegmentedControlFirst)
-        view.addSubview(betterSegmentedControlSecond)
-        /********************************************************/
-        
-        /*secondImageView.addSubview(debug1)
-        secondImageView.addSubview(debug2)
-        secondImageView.isUserInteractionEnabled = true*/
+        initSegmentedControl()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.setBetterSegmentedControlFirstConstraints()
@@ -149,10 +131,8 @@ class QuestionViewController: UIViewController {
         self.debugOneConstraints()
         self.debugTwoConstraints()
         self.debugThreeConstraints()
-    
         self.congratStripLabelConstraints()
         self.congratStripNumberConstraints()
-        
         self.congratStripInitialConstraints()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -392,59 +372,111 @@ class QuestionViewController: UIViewController {
         congratStripSetState("FIRST")
         //self.segmentedControlAnimationOnPress()
         sender.isUserInteractionEnabled = false
-        isViewTwoOpen = !isViewTwoOpen
-        let imageIndex = arc4random_uniform(UInt32(dataSource.images.count))
-        let image = dataSource.images[Int(imageIndex)]
-        self.secondImageView?.image = image
+        //isViewTwoOpen = !isViewTwoOpen
+        let imageIndex = arc4random_uniform(UInt32(theGameController.dataSource.questions.count))
+        let image = theGameController.dataSource.questions[Int(imageIndex)]
+        self.secondImageView?.image = currentQuestion.image
         MPFoldTransition.transition(from: self.centralImageView, to: self.secondImageView, duration: 0.5, style: UInt(MPFoldStyleCubic), transitionAction: MPTransitionActionNone, completion: {_ in
-            self.centralImageView?.image = image
+            self.centralImageView?.image = self.currentQuestion.image
             sender.isUserInteractionEnabled = true
         })
-
     }
-    
     @IBAction func debugTwoPressed(_ sender: UIButton) {
         congratStripSetState("THIRD")
         //self.segmentedControlAnimationOnPress()
         sender.isUserInteractionEnabled = false
-        isViewTwoOpen = !isViewTwoOpen
-        let imageIndex = arc4random_uniform(UInt32(dataSource.images.count))
-        let image = dataSource.images[Int(imageIndex)]
-        self.secondImageView?.image = image
+        //isViewTwoOpen = !isViewTwoOpen
+        let imageIndex = arc4random_uniform(UInt32(theGameController.dataSource.questions.count))
+        let image = theGameController.dataSource.questions[Int(imageIndex)]
+        self.secondImageView?.image = currentQuestion.image
         MPFoldTransition.transition(from: self.centralImageView, to: self.secondImageView, duration: 0.5, style: UInt(MPFoldStyleCubic), transitionAction: MPTransitionActionNone, completion: {_ in
-            self.centralImageView?.image = image
+            self.centralImageView?.image = self.currentQuestion.image
             sender.isUserInteractionEnabled = true
         })
-
+    }
+    @IBAction func debugThreePressed(_ sender: UIButton) {
+        setBetterSegmentedControlFirstConstraints()
+        setBetterSegmentedControlSecondConstraints()
     }
     
-    @IBAction func debugThreePressed(_ sender: UIButton) {
-        congratStripSetState("MIDDLE")
-        sender.isUserInteractionEnabled = false
-        isViewTwoOpen = !isViewTwoOpen
-        let imageIndex = arc4random_uniform(UInt32(dataSource.images.count))
-        let image = dataSource.images[Int(imageIndex)]
+    func switchImage() {
+        let image = theGameController.currentQuestion.image
         self.secondImageView?.image = image
         MPFoldTransition.transition(from: self.centralImageView, to: self.secondImageView, duration: 0.5, style: UInt(MPFoldStyleCubic), transitionAction: MPTransitionActionNone, completion: {_ in
-            self.centralImageView?.image = image
-            sender.isUserInteractionEnabled = true
+            self.centralImageView?.image = theGameController.currentQuestion.image
+            self.setBetterSegmentedControlFirstConstraints()
+            self.setBetterSegmentedControlSecondConstraints()
         })
-
     }
     
     func segmentedControlFirstValueChanged(_ sender: BetterSegmentedControl) {
         self.segmentedControlAnimationOnPress()
+        var selectedAnswer: String!
+        let index: Int = Int(self.betterSegmentedControlFirst.index)
+        selectedAnswer = betterSegmentedControlCurrentTitlesFirst[index]
+        theGameController.checkRightOrWrong(selectedAnswer)
     }
     
     func segmentedControlSecondValueChanged(_ sender: BetterSegmentedControl) {
         self.segmentedControlAnimationOnPress()
+        var selectedAnswer: String!
+        let index: Int = Int(self.betterSegmentedControlSecond.index)
+        selectedAnswer = betterSegmentedControlCurrentTitlesSecond[index]
+        theGameController.checkRightOrWrong(selectedAnswer)
     }
     
-    /*let index: Int = Int(self.betterSegmentedControlSecond.index)
-     let answers = currentQuestion.answers
-     let hui = answers[index]
-     self.debug1.setTitle(hui, for: .normal)
-     self.debug2.setTitle(hui, for: .normal) */
+    /**************************SEGMENTED*********************/
+    func initSegmentedControl() {
+        let betterSegmentedControlFirst = BetterSegmentedControl(
+            frame: CGRect.zero,
+            titles: ["Default", "Default"],
+            index: 5,
+            backgroundColor: .clear,
+            titleColor: .white,
+            indicatorViewBackgroundColor: .black,
+            selectedTitleColor: .white)
+        betterSegmentedControlFirst.titleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightThin)
+        betterSegmentedControlFirst.selectedTitleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightLight)
+        betterSegmentedControlFirst.cornerRadius = 20.0
+        self.betterSegmentedControlFirst = betterSegmentedControlFirst
+        
+        let betterSegmentedControlSecond = BetterSegmentedControl(
+            frame: CGRect.zero,
+            titles: ["Default", "Default"],
+            index: 5,
+            backgroundColor: .clear,
+            titleColor: .white,
+            indicatorViewBackgroundColor: .red,
+            selectedTitleColor: .white)
+        betterSegmentedControlSecond.titleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightThin)
+        betterSegmentedControlSecond.selectedTitleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightLight)
+        betterSegmentedControlSecond.cornerRadius = 20.0
+        self.betterSegmentedControlSecond = betterSegmentedControlSecond
+        
+        betterSegmentedControlFirst.addTarget(self, action: #selector(self.segmentedControlFirstValueChanged(_:)), for: .valueChanged)
+        betterSegmentedControlSecond.addTarget(self, action: #selector(self.segmentedControlSecondValueChanged(_:)), for: .valueChanged)
+        
+        view.addSubview(betterSegmentedControlFirst)
+        view.addSubview(betterSegmentedControlSecond)
+        
+        getAnswersForSegmentedControls()
+    }
+    
+    func removeSegmentedControls() {
+        betterSegmentedControlFirst.removeFromSuperview()
+        betterSegmentedControlSecond.removeFromSuperview()
+    }
+    
+    func getAnswersForSegmentedControls() {
+        betterSegmentedControlCurrentTitlesFirst = Array(theGameController.currentQuestionAnswerList[3..<6])
+        betterSegmentedControlFirst.titles = betterSegmentedControlCurrentTitlesFirst
+        betterSegmentedControlCurrentTitlesSecond = Array(theGameController.currentQuestionAnswerList[0..<3])
+        betterSegmentedControlSecond.titles = betterSegmentedControlCurrentTitlesSecond
+    }
+
+    func indicatorViewBackChange(_ toColor: UIColor,_ segmented: BetterSegmentedControl) {
+        
+    }
   
 }
 
@@ -484,7 +516,6 @@ extension QuestionViewController {
         segmentedControlFirstGradient.frame = betterSegmentedControlFirst.frame
         segmentedControlFirstGradient.zPosition = -1
         segmentedControlFirstGradient.cornerRadius = 20.0
-        //asdf.backgroundColor = UIColor.clear
         self.view.layer.addSublayer(segmentedControlFirstGradient)
     }
     
@@ -497,7 +528,6 @@ extension QuestionViewController {
         segmentedControlSecondGradient.frame = betterSegmentedControlSecond.frame
         segmentedControlSecondGradient.zPosition = -1
         segmentedControlSecondGradient.cornerRadius = 20.0
-        //asdf.backgroundColor = UIColor.clear
         self.view.layer.addSublayer(segmentedControlSecondGradient)
     }
     
