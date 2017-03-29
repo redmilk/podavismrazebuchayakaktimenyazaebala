@@ -25,13 +25,77 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FightersTrivia/GameController.swift"
-            timestampString = "512229914.551769"
+            filePath = "FightersTrivia/QuestionViewController.swift"
+            timestampString = "512472166.793709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "playerWasRightGoToTheNextQuestion()"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "congratStripSetState(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FightersTrivia.QuestionViewController.congratStripSetState (Swift.String) -&gt; ()"
+                  moduleName = "FightersTrivia"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denisi/Desktop/KefirFoldQuiz/podavismrazebuchayakaktimenyazaebala/FightersTrivia/QuestionViewController.swift"
+                  timestampString = "512464983.8847"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "488">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FightersTrivia.QuestionViewController.(congratStripSetState (Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "FightersTrivia"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denisi/Desktop/KefirFoldQuiz/podavismrazebuchayakaktimenyazaebala/FightersTrivia/QuestionViewController.swift"
+                  timestampString = "512464983.889621"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "161"
+                  endingLineNumber = "161"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FightersTrivia/QuestionViewController.swift"
+            timestampString = "512474531.630657"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
+            landmarkName = "mainGradientBackChange(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FightersTrivia/QuestionViewController.swift"
+            timestampString = "512474531.630657"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "492"
+            endingLineNumber = "492"
+            landmarkName = "gradientBackgroundColorAnimation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,28 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FightersTrivia/GameController.swift"
-            timestampString = "512229914.551769"
+            timestampString = "512474813.383634"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "checkRightOrWrong(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FightersTrivia/GameController.swift"
-            timestampString = "512228464.191705"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "initCurrentQuestion()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

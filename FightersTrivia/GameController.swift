@@ -17,7 +17,7 @@ var theGameController: GameController!
 
 class GameController {
     
-    var questions: [TheQuestion] = {
+    var questions: [TheQuestion]? = {
         var questions = [TheQuestion]()
         return questions
     }()
@@ -56,12 +56,17 @@ class GameController {
     }
     
     func initCurrentQuestion() {
-        currentQuestion = questions[currentQuestionIndex]
+        if (questions?.count)! <= currentQuestionIndex {
+            print("NO QUESTIONS")
+            return
+        }
+        currentQuestion = questions?[currentQuestionIndex]
         currentQuestionAnswerList = getRandomAnswers(howmany: answerListCount)
         currentQuestionRightIndex = generateRightAnswer()
         qVController.switchImage()
         qVController.initSegmentedControl()
         qVController.getAnswersForSegmentedControls()
+        qVController.controlsInteractionEnabled(true)
     }
     
     func initGame() {
@@ -102,7 +107,8 @@ class GameController {
     
     // MARK: - player was wrong
     func playerWasWrongSkipThisQuestion() {
-        
+        currentQuestionIndex += 1
+        initCurrentQuestion()
     }
     // MARK: - player was right
     func playerWasRightGoToTheNextQuestion() {
@@ -112,17 +118,50 @@ class GameController {
     
     // MARK: - check right or wrong
     func checkRightOrWrong(_ answer: String) {
+        /// if RIGHT
         if answer == currentQuestion.rightAnswerAndTitle {
             playSound("RIGHT")
+            qVController.segmentedGradientBackChange("RIGHT")
+            qVController.mainGradientBackChange("RIGHT")
+            qVController.controlsInteractionEnabled(false)
+            score += 1
+            self.scoreLabel?.text = score.description
             qVController.congratStripSetState("MIDDLE")
             let triggerTime = (Int64(NSEC_PER_SEC) * Int64(2))
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(triggerTime) / Double(NSEC_PER_SEC), execute: { () -> Void in
                 qVController.congratStripSetState("THIRD")
                 qVController.removeSegmentedControls()
+                qVController.segmentedControlAnimationOnPress(gradientOnly: true)
                 self.playerWasRightGoToTheNextQuestion()
+                
+                let triggerTime = (Int64(NSEC_PER_SEC) * Int64(1))
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(triggerTime) / Double(NSEC_PER_SEC), execute: { () -> Void in
+                    qVController.congratStripSetState("FIRST")
+                })
             })
         } else {
+            /// if WRONG
             playSound("WRONG")
+            qVController.segmentedGradientBackChange("WRONG")
+            qVController.mainGradientBackChange("WRONG")
+            qVController.controlsInteractionEnabled(false)
+            qVController.congratStripLabel.backgroundColor = .red
+            qVController.congratStripLabel.text = "Wrong!"
+            qVController.congratStripSetState("MIDDLE")
+            let triggerTime = (Int64(NSEC_PER_SEC) * Int64(2))
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(triggerTime) / Double(NSEC_PER_SEC), execute: { () -> Void in
+                qVController.congratStripSetState("THIRD")
+                qVController.removeSegmentedControls()
+                qVController.segmentedControlAnimationOnPress(gradientOnly: true)
+                self.playerWasWrongSkipThisQuestion()
+                
+                let triggerTime = (Int64(NSEC_PER_SEC) * Int64(1))
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(triggerTime) / Double(NSEC_PER_SEC), execute: { () -> Void in
+                    qVController.congratStripSetState("FIRST")
+                    qVController.congratStripLabel.backgroundColor = .green
+                    qVController.congratStripLabel.text = "Congratulations!"
+                })
+            })
         }
     }
     

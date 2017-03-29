@@ -217,43 +217,10 @@
                                 <rect key="frame" x="28" y="100" width="319" height="266.5"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cX-yb-SSm">
-                                <rect key="frame" x="28" y="388" width="95.5" height="26.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.23645061254501343" green="0.96053010225296021" blue="0.16144570708274841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title=" Debug">
-                                    <color key="titleColor" red="0.99582701921463013" green="0.99235993623733521" blue="0.98333722352981567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="debugOnePressed:" destination="TUh-bb-cAe" eventType="touchUpInside" id="f7R-mZ-Uyo"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="574-0Y-vSk">
                                 <rect key="frame" x="520.5" y="100" width="319" height="266.5"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW5-c5-JPV">
-                                <rect key="frame" x="251" y="388" width="95.5" height="26.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.97897487878799438" green="0.16556671261787415" blue="0.0095646269619464874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title=" Debug">
-                                    <color key="titleColor" red="0.99132734537124634" green="0.97661584615707397" blue="0.97620099782943726" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="debugTwoPressed:" destination="TUh-bb-cAe" eventType="touchUpInside" id="YG8-iM-qYf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fP4-BE-bU7">
-                                <rect key="frame" x="140" y="388" width="95.5" height="26.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title=" Debug">
-                                    <color key="titleColor" red="0.99582701920000005" green="0.99235993619999996" blue="0.98333722349999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="debugThreePressed:" destination="TUh-bb-cAe" eventType="touchUpInside" id="cY9-rD-XmK"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lKp-T8-xaz">
                                 <rect key="frame" x="109" y="0.0" width="156" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -295,9 +262,6 @@
                         <outlet property="congratStripLabel" destination="TeR-9o-wTJ" id="mDF-Oi-dhs"/>
                         <outlet property="congratStripNumber" destination="bEc-p3-hoj" id="b1Y-za-83b"/>
                         <outlet property="congratStripView" destination="lKp-T8-xaz" id="Cw3-PU-glh"/>
-                        <outlet property="debug1" destination="2cX-yb-SSm" id="VZ3-Kt-hV8"/>
-                        <outlet property="debug2" destination="OW5-c5-JPV" id="zgM-Ha-CUY"/>
-                        <outlet property="debug3" destination="fP4-BE-bU7" id="mdu-8g-tUC"/>
                         <outlet property="secondImageView" destination="574-0Y-vSk" id="Wid-YP-GRm"/>
                         <segue destination="fem-r0-IPg" kind="show" identifier="showGameOver" action="showDetailViewController:sender:" id="qEc-Pe-LOz"/>
                         <segue destination="wMn-1T-3ri" kind="show" identifier="showGameDone" id="ioq-Ng-mpe"/>
@@ -320,15 +284,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightsindarkness" translatesAutoresizingMaskIntoConstraints="NO" id="f5n-NQ-Cf8">
-                                <rect key="frame" x="87.5" y="233.5" width="200" height="200"/>
+                                <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="27B-Br-rpI"/>
-                                    <constraint firstAttribute="width" constant="200" id="i74-jY-sLW"/>
+                                    <constraint firstAttribute="height" constant="100" id="27B-Br-rpI"/>
+                                    <constraint firstAttribute="width" constant="100" id="i74-jY-sLW"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ApiqA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvc-s3-Ldi">
-                                <rect key="frame" x="137.5" y="433.5" width="100" height="25"/>
+                                <rect key="frame" x="137.5" y="383.5" width="100" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="HBM-kQ-OUK"/>
                                     <constraint firstAttribute="width" constant="100" id="zN4-sX-sLI"/>
@@ -607,6 +571,6 @@
         <image name="lightsindarkness" width="1000" height="1000"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sR2-oi-bU4"/>
+        <segue reference="k07-Kc-BSJ"/>
     </inferredMetricsTieBreakers>
 </document>
