@@ -358,7 +358,7 @@ class QuestionViewController: UIViewController {
             index: 5,
             backgroundColor: .clear,
             titleColor: .white,
-            indicatorViewBackgroundColor: .red,
+            indicatorViewBackgroundColor: .black,
             selectedTitleColor: .white)
         betterSegmentedControlSecond.titleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightThin)
         betterSegmentedControlSecond.selectedTitleFont = UIFont.systemFont(ofSize: 21, weight: UIFontWeightLight)
@@ -435,6 +435,7 @@ class QuestionViewController: UIViewController {
         self.gradient.add(anim, forKey: nil)
         self.gradient.add(anim, forKey: nil)
     }
+    
 }
 
                             // GRADIENT

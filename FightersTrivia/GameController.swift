@@ -42,6 +42,7 @@ class GameController {
             self.highscore = hs
         } else {
             self.highscore = 0
+            UserDefaults.standard.set(self.highscore, forKey: "highscore")
         }
         self.dataSource = DataSource()
         questions = dataSource.questions
@@ -58,6 +59,7 @@ class GameController {
     func initCurrentQuestion() {
         if (questions?.count)! <= currentQuestionIndex {
             print("NO QUESTIONS")
+            wholeGameIsPathedBy()
             return
         }
         currentQuestion = questions?[currentQuestionIndex]
@@ -125,6 +127,10 @@ class GameController {
             qVController.mainGradientBackChange("RIGHT")
             qVController.controlsInteractionEnabled(false)
             score += 1
+            let beatHighScore = checkIfHighScore(score)
+            if beatHighScore {
+                /// pozdravit igroka s highscore, kogda on proigraet
+            }
             self.scoreLabel?.text = score.description
             qVController.congratStripSetState("MIDDLE")
             let triggerTime = (Int64(NSEC_PER_SEC) * Int64(2))
@@ -133,11 +139,7 @@ class GameController {
                 qVController.removeSegmentedControls()
                 qVController.segmentedControlAnimationOnPress(gradientOnly: true)
                 self.playerWasRightGoToTheNextQuestion()
-                
-                let triggerTime = (Int64(NSEC_PER_SEC) * Int64(1))
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(triggerTime) / Double(NSEC_PER_SEC), execute: { () -> Void in
-                    qVController.congratStripSetState("FIRST")
-                })
+                qVController.congratStripSetState("FIRST")
             })
         } else {
             /// if WRONG
@@ -154,12 +156,12 @@ class GameController {
                 qVController.removeSegmentedControls()
                 qVController.segmentedControlAnimationOnPress(gradientOnly: true)
                 self.playerWasWrongSkipThisQuestion()
-                
-                let triggerTime = (Int64(NSEC_PER_SEC) * Int64(1))
+                qVController.congratStripSetState("FIRST")
+                qVController.congratStripLabel.text = "Congratulations!"
+                qVController.congratStripLabel.backgroundColor = .green
+                let triggerTime = (Int64(NSEC_PER_SEC) * Int64(0))
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(triggerTime) / Double(NSEC_PER_SEC), execute: { () -> Void in
-                    qVController.congratStripSetState("FIRST")
-                    qVController.congratStripLabel.backgroundColor = .green
-                    qVController.congratStripLabel.text = "Congratulations!"
+                    qVController.doSegueWithIdentifier("showGameOver")
                 })
             })
         }
@@ -191,7 +193,7 @@ class GameController {
         }
         switch soundName {
         case "RIGHT":
-            AudioServicesPlaySystemSound(1440)//1394)
+            AudioServicesPlaySystemSound(1394)//1440)
             break
         case "WRONG":
             AudioServicesPlaySystemSound(1053)
